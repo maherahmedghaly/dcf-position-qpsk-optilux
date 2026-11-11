@@ -48,8 +48,7 @@ Three propagation cases separate the contribution of each fiber:
 
 | File | Purpose |
 |---|---|
-| `dcf_position_qpsk_simulation.m` | Main simulation: runs every sweep and saves the SNR plots, constellations and a CSV summary |
-| `ber_vs_launch_power_logscale.m` | Plots BER vs launch power on a logarithmic axis. It reuses the results of the main script and runs it automatically if no results exist yet. |
+| `dcf_position_qpsk_simulation.m` | Complete simulation: propagation sweep, SNR and BER plots (BER on a logarithmic axis), constellations, CSV summary and a saved MAT file of all results |
 | `figures/` | Example output figures |
 | `LICENSE` | GNU GPL v3 |
 
@@ -60,15 +59,16 @@ Three propagation cases separate the contribution of each fiber:
 **Requirements:** MATLAB R2019b or newer, and the Optilux toolbox.
 
 1. Download Optilux from **https://optilux.sourceforge.io** and unzip it anywhere on your computer.
-2. Open `dcf_position_qpsk_simulation.m` and set line 16 to your Optilux folder:
+2. Open `dcf_position_qpsk_simulation.m` and set `optiluxPath` (in the "User settings" section at the top) to your Optilux folder:
    ```matlab
    optiluxPath = 'C:\path\to\optilux';
    ```
-3. Run `ber_vs_launch_power_logscale.m`.
-   - The first time, it runs the full simulation. This takes a while: 180 sweep points plus the constellation plots.
-   - The results are saved to `outputs/dcf_position_qpsk_results.mat`, so later runs only re-plot and take a few seconds.
+3. Run `dcf_position_qpsk_simulation.m`.
+   - The first run computes the full sweep. This takes a while: 180 simulation points plus the constellation plots.
+   - The results are saved to `outputs/dcf_position_qpsk_results.mat`. On later runs the script loads this file and only redraws the figures.
+   - After changing any parameter, set `forceRecompute = true` (top of the script) to run the sweep again.
 
-All figures and the CSV summary are written to an `outputs/` folder next to the scripts.
+All figures and the CSV summary are written to an `outputs/` folder next to the script.
 
 ---
 
